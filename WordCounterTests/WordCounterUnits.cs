@@ -17,8 +17,7 @@ public class WordCounterTest {
     public void TestWordCounter(string[] input, (string word, int count)[] expected) {
         var result = WordCounter.CaseSensitiveOccurences(input);
         Assert.Equal(expected.Length, result.Count);
-        foreach (var (word, count) in expected)
-        {
+        foreach (var (word, count) in expected) {
             Assert.True(result.TryGetValue(word, out var actualCount));
             Assert.Equal(count, actualCount);
         }
@@ -35,8 +34,7 @@ public class WordCounterTest {
     public void TestCaseInsensitiveWordCounter(string[] input, (string word, int count)[] expected) {
         var result = WordCounter.CaseInsensitiveOccurences(input);
         Assert.Equal(expected.Length, result.Count);
-        foreach (var (word, count) in expected)
-        {
+        foreach (var (word, count) in expected) {
             Assert.True(result.TryGetValue(word, out var actualCount));
             Assert.Equal(count, actualCount);
         }
@@ -44,8 +42,7 @@ public class WordCounterTest {
 }
 
 public class TempFile {
-    public static string Write(string content)
-    {
+    public static string Write(string content) {
         var path = Path.GetTempFileName();
         File.WriteAllText(path, content);
         return path;
@@ -54,16 +51,16 @@ public class TempFile {
 
 public class WordStreamTest {
 
-     [Theory]
-     [InlineData("many test good", new[] { "many", "test", "good" })]
-     [InlineData("  many test   good  ", new[] { "many", "test", "good" })]
-     [InlineData("many test,good!", new[] { "many", "test", "good" })]
-     [InlineData("many test(good)", new[] { "many", "test", "good" })]
-     [InlineData("many test, good! (test", new[] { "many", "test", "good", "test" })]
-     public void TestWordStream(string input, string[] expected) {
-         var result = new WordStream(input, IsWhitespaceOrPunctuation).ToList();
-         Assert.Equal(expected, result);
-     }
+    [Theory]
+    [InlineData("many test good", new[] { "many", "test", "good" })]
+    [InlineData("  many test   good  ", new[] { "many", "test", "good" })]
+    [InlineData("many test,good!", new[] { "many", "test", "good" })]
+    [InlineData("many test(good)", new[] { "many", "test", "good" })]
+    [InlineData("many test, good! (test", new[] { "many", "test", "good", "test" })]
+    public void TestWordStream(string input, string[] expected) {
+        var result = new WordStream(input, IsWhitespaceOrPunctuation).ToList();
+        Assert.Equal(expected, result);
+    }
 
     [Fact]
     public void TestEmptyInput() {

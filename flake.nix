@@ -20,7 +20,6 @@
           packages = [
             dotnetPkg
             pkgs.roslyn-ls
-            pkgs.csharpier
           ];
 
           # Prevent .NET from trying to write to the Nix store

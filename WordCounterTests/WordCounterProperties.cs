@@ -9,8 +9,7 @@ using static tests.SharedWordStringGen;
 
 namespace tests;
 
-public class WordStreamProperties
-{
+public class WordStreamProperties {
     [Property(Arbitrary = new[] { typeof(WordStringGen) })]
     public Property WordsNeverContainDelimiter(string input) {
         return new WordStream(input, IsWhitespaceOrPunctuation).All(word => !word.Any(IsWhitespaceOrPunctuation)).ToProperty();
@@ -31,7 +30,7 @@ public class WordStreamProperties
         var wordStream = new WordStream(input.Value, IsWhitespaceOrPunctuation);
         var counts = WordCounter.CaseSensitiveOccurences(wordStream);
         return input.WordCounts.All(kvp => counts.TryGetValue(kvp.Key, out var count) && count == kvp.Value).ToProperty();
-                                                              }
+    }
 }
 
 public static class SharedWordStringGen {
@@ -51,7 +50,7 @@ public static class SharedWordStringGen {
 }
 
 public class WordStringGen {
-    
+
     private static Gen<string> Generate =>
         Gen.NonEmptyListOf(WordGen)
             .SelectMany(words =>
